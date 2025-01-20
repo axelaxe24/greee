@@ -3,44 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica Dinamica</title>
+    <title>Classifica Green Club</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Resetting margins and padding */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Basic styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #002ee5, rgb(0, 210, 0));
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f4f4f9;
-        }
-        h1 {
-            color: #333;
-            margin: 20px 0;
-        }
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px 0;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 10px;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
             text-align: center;
-            border: 1px solid #ddd;
         }
-        th {
-            background-color: #007BFF;
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
             color: #fff;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        /* Table styling */
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #e9f1f7;
+        }
+
+        tr:hover td {
+            background-color: #f39c12;
+            color: white;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive table design */
+        @media (max-width: 768px) {
+            table {
+                width: 90%;
+            }
+            th, td {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Classifica Dinamica</h1>
+    <h1>Classifica Green Club</h1>
     <table>
         <thead>
             <tr>
