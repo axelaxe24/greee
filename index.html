@@ -27,42 +27,46 @@
     </table>
 
     <script>
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTtrIZI9urhKfCAyfCA9dCU4zMjB51sT1m8uDQP18x8H4VJCkT2gmoFGkZ0l_8E1kgzrKN1kos3enWM/pub?output=csv';
-const proxyURL = 'https://cors-anywhere.herokuapp.com/';
-const proxiedURL = proxyURL + sheetURL;
+        async function caricaClassifica() {
+            // Link al foglio Google Sheets
+            const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTtrIZI9urhKfCAyfCA9dCU4zMjB51sT1m8uDQP18x8H4VJCkT2gmoFGkZ0l_8E1kgzrKN1kos3enWM/pub?output=csv';
 
-async function caricaClassifica() {
-    try {
-        const response = await fetch(proxiedURL);
-        if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
-        const text = await response.text();
+            // Usare un proxy per gestire CORS
+            const proxyURL = 'https://api.allorigins.win/get?url=';
+            const proxiedURL = `${proxyURL}${encodeURIComponent(sheetURL)}`;
 
-        console.log('Dati ricevuti:', text); // Per il debug
-        const rows = text.split('\n').slice(1); // Ignora l'intestazione
-        const classifica = rows.map(row => {
-            const [nome, punti] = row.split(',');
-            return { nome, punti: parseInt(punti) };
-        }).filter(entry => entry.nome && !isNaN(entry.punti));
+            try {
+                const response = await fetch(proxiedURL);
+                if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
+                
+                const data = await response.json();
+                const text = data.contents; // Contenuto del CSV
 
-        classifica.sort((a, b) => b.punti - a.punti);
+                const rows = text.split('\n').slice(1); // Ignora l'intestazione
+                const classifica = rows.map(row => {
+                    const [nome, punti] = row.split(',');
+                    return { nome, punti: parseInt(punti) };
+                }).filter(entry => entry.nome && !isNaN(entry.punti));
 
-        const tbody = document.getElementById('classifica-body');
-        tbody.innerHTML = '';
-        classifica.forEach((giocatore, index) => {
-            const row = `<tr>
-                <td>${index + 1}</td>
-                <td>${giocatore.nome}</td>
-                <td>${giocatore.punti}</td>
-            </tr>`;
-            tbody.innerHTML += row;
-        });
-    } catch (error) {
-        console.error('Errore durante il caricamento della classifica:', error);
-    }
-}
+                classifica.sort((a, b) => b.punti - a.punti); // Ordina per punti
 
-caricaClassifica();
+                const tbody = document.getElementById('classifica-body');
+                tbody.innerHTML = '';
+                classifica.forEach((giocatore, index) => {
+                    const row = `<tr>
+                        <td>${index + 1}</td>
+                        <td>${giocatore.nome}</td>
+                        <td>${giocatore.punti}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error('Errore durante il caricamento della classifica:', error);
+            }
+        }
 
+        // Carica la classifica all'avvio della pagina
+        caricaClassifica();
     </script>
 </body>
 </html>
