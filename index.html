@@ -32,8 +32,9 @@
             const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTtrIZI9urhKfCAyfCA9dCU4zMjB51sT1m8uDQP18x8H4VJCkT2gmoFGkZ0l_8E1kgzrKN1kos3enWM/pub?output=csv';
 
             // Usare un proxy per gestire CORS
-            const proxyURL = 'https://api.allorigins.win/get?url=';
-            const proxiedURL = `${proxyURL}${encodeURIComponent(sheetURL)}`;
+            const proxyURL = 'https://cors-anywhere.herokuapp.com/';
+            const proxiedURL = `${proxyURL}${sheetURL}`;
+
 
             try {
                 const response = await fetch(proxiedURL);
