@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classifica Dinamica</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        table { width: 50%; margin: 20px auto; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-        th { background-color: #f4f4f4; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Classifica</h1>
+    <h1>Classifica</h1>
     <table>
         <thead>
             <tr>
@@ -28,46 +41,55 @@
 
     <script>
         async function caricaClassifica() {
-            // Link al foglio Google Sheets
+            // Link al CSV pubblicato su Google Sheets
             const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTtrIZI9urhKfCAyfCA9dCU4zMjB51sT1m8uDQP18x8H4VJCkT2gmoFGkZ0l_8E1kgzrKN1kos3enWM/pub?output=csv';
-
-            // Usare un proxy per gestire CORS
-            const proxyURL = 'https://cors-anywhere.herokuapp.com/';
-            const proxiedURL = `${proxyURL}${sheetURL}`;
-
+            
+            // Proxy per bypassare i problemi CORS
+            const proxyURL = 'https://api.allorigins.win/get?url=';
+            const proxiedURL = `${proxyURL}${encodeURIComponent(sheetURL)}`;
 
             try {
+                // Recupera i dati dal foglio tramite il proxy
                 const response = await fetch(proxiedURL);
+                console.log('Risposta HTTP:', response); // Debug
                 if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
-                
+
+                // Estrai il contenuto del file CSV
                 const data = await response.json();
                 const text = data.contents; // Contenuto del CSV
+                console.log('Dati CSV ricevuti:', text); // Debug
 
+                // Elabora i dati CSV
                 const rows = text.split('\n').slice(1); // Ignora l'intestazione
                 const classifica = rows.map(row => {
                     const [nome, punti] = row.split(',');
-                    return { nome, punti: parseInt(punti) };
+                    return { nome: nome.trim(), punti: parseInt(punti) };
                 }).filter(entry => entry.nome && !isNaN(entry.punti));
 
-                classifica.sort((a, b) => b.punti - a.punti); // Ordina per punti
+                // Ordina la classifica per punti (decrescente)
+                classifica.sort((a, b) => b.punti - a.punti);
 
+                // Genera la tabella HTML
                 const tbody = document.getElementById('classifica-body');
                 tbody.innerHTML = '';
                 classifica.forEach((giocatore, index) => {
-                    const row = `<tr>
+                    const rowHTML = `<tr>
                         <td>${index + 1}</td>
                         <td>${giocatore.nome}</td>
                         <td>${giocatore.punti}</td>
                     </tr>`;
-                    tbody.innerHTML += row;
+                    tbody.innerHTML += rowHTML;
                 });
             } catch (error) {
+                // Mostra gli errori nella console
                 console.error('Errore durante il caricamento della classifica:', error);
+                alert('Errore durante il caricamento della classifica. Controlla la console per maggiori dettagli.');
             }
         }
 
-        // Carica la classifica all'avvio della pagina
+        // Carica la classifica al caricamento della pagina
         caricaClassifica();
     </script>
 </body>
 </html>
+
