@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +7,40 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+            margin: 20px 0;
         }
         table {
-            width: 60%;
-            margin: 20px auto;
             border-collapse: collapse;
+            width: 80%;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         th, td {
-            border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
+            border: 1px solid #ddd;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #007BFF;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
-    <h1>Classifica</h1>
+    <h1>Classifica Dinamica</h1>
     <table>
         <thead>
             <tr>
@@ -35,41 +50,26 @@
             </tr>
         </thead>
         <tbody id="classifica-body">
-            <!-- Righe generate dinamicamente -->
+            <!-- Le righe della classifica verranno aggiunte dinamicamente -->
         </tbody>
     </table>
-
     <script>
+        const apiURL = 'https://api.sheety.co/64540a20b40e480e46ddd6187aabd524/classifica/sheet1';
+
         async function caricaClassifica() {
-            // Link al CSV pubblicato su Google Sheets
-            const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTtrIZI9urhKfCAyfCA9dCU4zMjB51sT1m8uDQP18x8H4VJCkT2gmoFGkZ0l_8E1kgzrKN1kos3enWM/pub?output=csv';
-            
-            // Proxy per bypassare i problemi CORS
-            const proxyURL = 'https://corsproxy.io/?';
-            const proxiedURL = `${proxyURL}${encodeURIComponent(sheetURL)}`;
-
             try {
-                // Recupera i dati dal foglio tramite il proxy
-                const response = await fetch(proxiedURL);
-                console.log('Risposta HTTP:', response); // Debug
+                // Effettua la richiesta all'API Sheety
+                const response = await fetch(apiURL);
                 if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
-
-                // Estrai il contenuto del file CSV
                 const data = await response.json();
-                const text = data.contents; // Contenuto del CSV
-                console.log('Dati CSV ricevuti:', text); // Debug
 
-                // Elabora i dati CSV
-                const rows = text.split('\n').slice(1); // Ignora l'intestazione
-                const classifica = rows.map(row => {
-                    const [nome, punti] = row.split(',');
-                    return { nome: nome.trim(), punti: parseInt(punti) };
-                }).filter(entry => entry.nome && !isNaN(entry.punti));
+                // Ottieni i dati della classifica
+                const classifica = data.sheet1;
 
-                // Ordina la classifica per punti (decrescente)
+                // Ordina la classifica in base ai punti (dal più alto al più basso)
                 classifica.sort((a, b) => b.punti - a.punti);
 
-                // Genera la tabella HTML
+                // Aggiorna la tabella HTML
                 const tbody = document.getElementById('classifica-body');
                 tbody.innerHTML = '';
                 classifica.forEach((giocatore, index) => {
@@ -81,15 +81,13 @@
                     tbody.innerHTML += rowHTML;
                 });
             } catch (error) {
-                // Mostra gli errori nella console
                 console.error('Errore durante il caricamento della classifica:', error);
-                alert('Errore durante il caricamento della classifica. Controlla la console per maggiori dettagli.');
+                alert('Impossibile caricare la classifica. Riprova più tardi.');
             }
         }
 
-        // Carica la classifica al caricamento della pagina
+        // Carica la classifica quando la pagina è pronta
         caricaClassifica();
     </script>
 </body>
 </html>
-
