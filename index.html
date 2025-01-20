@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica Green Club</title>
+    <title>Classifiche Padel</title>
     <style>
         /* Resetting margins and padding */
         * {
@@ -30,107 +30,99 @@
             margin-bottom: 30px;
             letter-spacing: 2px;
             color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Table styling */
-        table {
-            width: 80%;
-            margin: 20px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+        /* Button container */
+        .button-container {
+            margin-top: 20px;
         }
 
-        th, td {
-            padding: 15px;
-            text-align: center;
+        /* Style for buttons */
+        .btn {
+            padding: 15px 30px;
             font-size: 1.2rem;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, #0026bc, rgb(0, 182, 0));
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
         }
 
-        th {
-            background-color: #3498db;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* Hover effect */
+        .btn:hover {
+            background: linear-gradient(135deg, #001774, rgb(0, 110, 0));
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            animation: hoverGlow 1s ease-in-out infinite;
         }
 
-        td {
-            background-color: #f4f4f9;
-            color: #333;
+        /* Active effect */
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        tr:nth-child(even) td {
-            background-color: #e9f1f7;
+        /* Animation: Fade in effect */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
-        tr:hover td {
-            background-color: #f39c12;
-            color: white;
-            transform: scale(1.05);
-            transition: all 0.3s ease;
+        /* Animation: Glow effect on hover */
+        @keyframes hoverGlow {
+            0% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
+            50% { box-shadow: 0 0 20px #e74c3c, 0 0 30px #e74c3c, 0 0 40px #e74c3c; }
+            100% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
         }
 
-        /* Responsive table design */
+        /* Animation: Shake effect */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Responsive design */
         @media (max-width: 768px) {
-            table {
-                width: 90%;
+            h1 {
+                font-size: 2rem;
             }
-            th, td {
+
+            .btn {
                 font-size: 1rem;
+                padding: 12px 25px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Classifica Green Club</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Posizione</th>
-                <th>Nome</th>
-                <th>Punti</th>
-            </tr>
-        </thead>
-        <tbody id="classifica-body">
-            <!-- Le righe della classifica verranno aggiunte dinamicamente -->
-        </tbody>
-    </table>
+    <h1>Seleziona la Classifica</h1>
+
+    <div class="button-container">
+        <!-- Pulsanti per navigare tra le classifiche -->
+        <a href="beginners.html" class="btn">Classifica Beginners</a>
+        <a href="intermedi.html" class="btn">Classifica Intermedi</a>
+    </div>
+
     <script>
-        const apiURL = 'https://api.sheety.co/64540a20b40e480e46ddd6187aabd524/classifica/sheet1';
-
-        async function caricaClassifica() {
-            try {
-                // Effettua la richiesta all'API Sheety
-                const response = await fetch(apiURL);
-                if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
-                const data = await response.json();
-
-                // Ottieni i dati della classifica
-                const classifica = data.sheet1;
-
-                // Ordina la classifica in base ai punti (dal più alto al più basso)
-                classifica.sort((a, b) => b.punti - a.punti);
-
-                // Aggiorna la tabella HTML
-                const tbody = document.getElementById('classifica-body');
-                tbody.innerHTML = '';
-                classifica.forEach((giocatore, index) => {
-                    const rowHTML = `<tr>
-                        <td>${index + 1}</td>
-                        <td>${giocatore.nome}</td>
-                        <td>${giocatore.punti}</td>
-                    </tr>`;
-                    tbody.innerHTML += rowHTML;
-                });
-            } catch (error) {
-                console.error('Errore durante il caricamento della classifica:', error);
-                alert('Impossibile caricare la classifica. Riprova più tardi.');
-            }
-        }
-
-        // Carica la classifica quando la pagina è pronta
-        caricaClassifica();
+        // Funzione che aggiunge un effetto "shake" quando il pulsante viene cliccato
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    this.style.animation = ''; // Resetting animation
+                }, 500);
+            });
+        });
     </script>
 </body>
 </html>
