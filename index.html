@@ -14,8 +14,8 @@
         
         /* Basic styling */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #002ee5, rgb(0, 210, 0));
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #001275, rgb(64, 140, 255));
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,9 +27,19 @@
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 3rem; /* Ingrandito rispetto al precedente */
+            margin-bottom: 15px;
             letter-spacing: 2px;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h2 {
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.8rem; /* Più piccolo rispetto a h1 */
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
             color: #fff;
             animation: fadeIn 1.5s ease-in-out;
         }
@@ -41,13 +51,14 @@
 
         /* Style for buttons */
         .btn {
-            padding: 12px 25px;
-            font-size: 1rem;
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 15px 30px;
+            font-size: 1.2rem; /* Ingrandito rispetto al precedente */
             margin: 10px;
             border-radius: 50px;
             text-decoration: none;
             color: #fff;
-            background: linear-gradient(135deg, #0026bc, rgb(0, 182, 0));
+            background: linear-gradient(135deg, #000d57, rgb(0, 76, 190));
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
             border: none;
@@ -57,7 +68,8 @@
 
         /* Hover effect */
         .btn:hover {
-            background: linear-gradient(135deg, #001774, rgb(0, 110, 0));
+            background: linear-gradient(135deg, #58ecff, rgb(92, 163, 255));
+            color: #000;
             transform: translateY(-5px);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
             animation: hoverGlow 1s ease-in-out infinite;
@@ -77,45 +89,39 @@
 
         /* Animation: Glow effect on hover */
         @keyframes hoverGlow {
-            0% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
-            50% { box-shadow: 0 0 20px #e74c3c, 0 0 30px #e74c3c, 0 0 40px #e74c3c; }
-            100% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
-        }
-
-        /* Animation: Shake effect */
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
+            0% { box-shadow: 0 0 5px #1100ff, 0 0 10px #1100ff, 0 0 15px #1100ff; }
+            50% { box-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff; }
+            100% { box-shadow: 0 0 5px #1100ff, 0 0 10px #1100ff, 0 0 15px #1100ff; }
         }
 
         /* Responsive design */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            h1 {
+                font-size: 2.5rem; /* Adattato per tablet */
             }
 
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 15px;
+            h2 {
+                font-size: 1.5rem; /* Adattato per tablet */
             }
 
             .btn {
-                font-size: 0.9rem;
-                padding: 10px 20px;
+                font-size: 1rem; /* Adattato per tablet */
+                padding: 12px 25px;
             }
         }
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem; /* Adattato per smartphone */
+            }
+
+            h2 {
+                font-size: 1.2rem; /* Adattato per smartphone */
             }
 
             .btn {
-                font-size: 0.8rem;
-                padding: 8px 15px;
+                font-size: 0.9rem; /* Adattato per smartphone */
+                padding: 10px 20px;
             }
 
             .button-container {
@@ -125,7 +131,9 @@
     </style>
 </head>
 <body>
-    <h1>Seleziona la Classifica</h1>
+    <h1>CLASSIFICA GENERALE TORNEI PADEL</h1>
+    <h2>Green Club</h2>
+    <br>
 
     <div class="button-container">
         <!-- Pulsanti per navigare tra le classifiche -->

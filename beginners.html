@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classifica Beginners</title>
     <style>
+        /* Resetting margins and padding */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Basic styling */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #002ee5, rgb(0, 210, 0));
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #001275, rgb(64, 140, 255));
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,15 +24,16 @@
             padding: 20px;
             color: #fff;
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 3rem; /* Ingrandito rispetto al precedente */
             margin-bottom: 20px;
             letter-spacing: 2px;
             color: #fff;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         table {
@@ -44,16 +47,16 @@
         }
 
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.2rem; /* Ingrandito per uniformità */
         }
 
         th {
-            background-color: #3498db;
+            background-color: rgb(0, 76, 190);
             color: white;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         td {
@@ -67,28 +70,30 @@
         }
 
         tr:hover td {
-            background-color: #f39c12;
+            background-color: rgb(92, 163, 255);
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .btn {
-            padding: 12px 25px;
-            font-size: 1rem;
+            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 15px 30px;
+            font-size: 1.2rem;
             margin: 10px;
             border-radius: 50px;
             text-decoration: none;
             color: #fff;
-            background: linear-gradient(135deg, #0026bc, rgb(0, 182, 0));
+            background: linear-gradient(135deg, #000d57, rgb(0, 76, 190));
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
             border: none;
             cursor: pointer;
             position: relative;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #001774, rgb(0, 110, 0));
+            background: linear-gradient(135deg, #58ecff, rgb(92, 163, 255));
+            color: #000;
             transform: translateY(-5px);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
             animation: hoverGlow 1s ease-in-out infinite;
@@ -99,12 +104,14 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Animation: Glow effect on hover */
         @keyframes hoverGlow {
-            0% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
-            50% { box-shadow: 0 0 20px #e74c3c, 0 0 30px #e74c3c, 0 0 40px #e74c3c; }
-            100% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
+            0% { box-shadow: 0 0 5px #1100ff, 0 0 10px #1100ff, 0 0 15px #1100ff; }
+            50% { box-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff; }
+            100% { box-shadow: 0 0 5px #1100ff, 0 0 10px #1100ff, 0 0 15px #1100ff; }
         }
 
+        /* Animation: Fade in effect */
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -115,12 +122,32 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
+        /* Responsive design */
         @media (max-width: 768px) {
             table {
                 width: 100%;
             }
             th, td {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                width: 100%;
+            }
+            th, td {
                 font-size: 0.9rem;
+                padding: 10px;
             }
 
             h1 {
@@ -130,25 +157,6 @@
             .btn {
                 font-size: 0.9rem;
                 padding: 10px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            table {
-                width: 100%;
-            }
-            th, td {
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .btn {
-                font-size: 0.8rem;
-                padding: 8px 15px;
             }
         }
     </style>
@@ -169,14 +177,17 @@
     </table>
     <a href="index.html" class="btn">Torna Indietro</a>
     <script>
-        const apiURL = 'https://api.sheety.co/64540a20b40e480e46ddd6187aabd524/classifica/sheet1';
+        const apiURL = 'https://api.sheety.co/64540a20b40e480e46ddd6187aabd524/classificaGeneraleGreenClub/beginners';
 
         async function caricaClassifica() {
             try {
                 const response = await fetch(apiURL);
                 if (!response.ok) throw new Error(`Errore HTTP! Stato: ${response.status}`);
                 const data = await response.json();
-                const classifica = data.sheet1;
+
+                const classifica = data.BEGINNERS || data.beginners; 
+                if (!classifica) throw new Error('La proprietà BEGINNERS non è presente nei dati restituiti.');
+
                 classifica.sort((a, b) => b.punti - a.punti);
 
                 const tbody = document.getElementById('classifica-body');
