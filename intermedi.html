@@ -72,6 +72,39 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }       
 
+        .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, #0026bc, rgb(0, 182, 0));
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #001774, rgb(0, 110, 0));
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            animation: hoverGlow 1s ease-in-out infinite;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes hoverGlow {
+            0% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
+            50% { box-shadow: 0 0 20px #e74c3c, 0 0 30px #e74c3c, 0 0 40px #e74c3c; }
+            100% { box-shadow: 0 0 5px #3498db, 0 0 10px #3498db, 0 0 15px #3498db; }
+        }
+
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -124,6 +157,7 @@
             <!-- Le righe della classifica verranno aggiunte dinamicamente -->
         </tbody>
     </table>
+    <a href="index.html" class="btn">Torna Indietro</a>
     <script>
         const apiURL = 'https://api.sheety.co/64540a20b40e480e46ddd6187aabd524/classifica/sheet2';
 
