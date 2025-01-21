@@ -47,6 +47,8 @@
         /* Button container */
         .button-container {
             margin-top: 20px;
+            display: flex; /* Flexbox to align buttons on the same line */
+            gap: 15px; /* Space between buttons */
         }
 
         /* Style for buttons */
@@ -114,8 +116,6 @@
             .btn {
                 font-size: 1rem; /* Adjusted for tablets */
                 padding: 12px 30px;
-                max-width: 100%; /* Prevent button from breaking into multiple lines */
-                white-space: nowrap; /* Prevent text from wrapping */
             }
         }
 
@@ -131,12 +131,12 @@
             .btn {
                 font-size: 0.9rem; /* Slightly smaller on smartphones */
                 padding: 10px 20px;
-                max-width: 100%; /* Prevent button from breaking into multiple lines */
-                white-space: nowrap; /* Prevent text from wrapping */
             }
 
             .button-container {
                 margin-top: 15px;
+                flex-wrap: wrap; /* Wrap buttons if there is no space */
+                justify-content: center; /* Center buttons */
             }
         }
     </style>
