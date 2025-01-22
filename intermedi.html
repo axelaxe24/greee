@@ -75,6 +75,26 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Highlight colors for top 3 */
+        tr.gold:hover td {
+            background-color: rgb(216, 188, 116);
+            color: black;
+        }
+
+        tr.silver:hover td {
+            background-color: rgb(183, 183, 183);
+            color: black;
+        }
+
+        tr.bronze:hover td {
+            background-color: rgb(200, 150, 112);
+            color: black;
+        }
+
+        .medal {
+            font-size: 1.5rem; /* Ingrandisce solo le medagliette */
+        }
+
         .btn {
             font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 15px 30px;
@@ -193,8 +213,22 @@
                 const tbody = document.getElementById('classifica-body');
                 tbody.innerHTML = '';
                 classifica.forEach((giocatore, index) => {
-                    const rowHTML = `<tr>
-                        <td>${index + 1}</td>
+                    let rowClass = '';
+                    let posizione = index + 1;
+
+                    if (index === 0) {
+                        rowClass = 'gold';
+                        posizione = '<span class="medal">🥇</span>';
+                    } else if (index === 1) {
+                        rowClass = 'silver';
+                        posizione = '<span class="medal">🥈</span>';
+                    } else if (index === 2) {
+                        rowClass = 'bronze';
+                        posizione = '<span class="medal">🥉</span>';
+                    }
+
+                    const rowHTML = `<tr class="${rowClass}">
+                        <td>${posizione}</td>
                         <td>${giocatore.nome}</td>
                         <td>${giocatore.punti}</td>
                     </tr>`;
